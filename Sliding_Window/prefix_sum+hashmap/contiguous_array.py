@@ -1,6 +1,7 @@
 
 #https://leetcode.com/problems/contiguous-array/
 
+
 class Solution:
     def findMaxLength(self, nums: List[int]) -> int:
         '''maxlen=0
@@ -16,7 +17,7 @@ class Solution:
                     maxlen = max(maxlen,j-i+1)
         return maxlen'''
 
-        
+
         #Better appraoch1 using prefisum+hashmap
         '''#we can wither change like this all 0->-1 or do the other stated mehtod
         for i in range(0,len(nums)):
@@ -33,9 +34,11 @@ class Solution:
             if remaining in mpp:
                 maxlen = max(maxlen,i-mpp[remaining])
             #storing psum in mpp
-            else:   
+  
                 #we are using else condn to store here because if we didnt use else and direclty store, eveytime a new one which might already be present in the mpp will also get directly updated..and oncethat gets udpated..thyen the length will be shprt for us to calculate..because i value which we will be storing in val of mpp-->that will be bigger one comapred to befpre one which we have replaced--so, that gives us shprtest length..butwe need maxlength..so, we need to put else condn -->whcih makes sure that if there is no element in the mpp then itself it will add..else it doesnt touch it if there is already element present.
+            if psum not in mpp:
                 mpp[psum] = i
+
         
         return maxlen'''
 
@@ -53,7 +56,11 @@ class Solution:
             if remaining in mpp:
                 start=mpp[remaining]+1
                 maxlen = max(maxlen,i-start+1)
+            '''If prefix sum seen before:
+    length = current_index − first_occurrence
+            Else:
+                store first occurrence'''
                 
-            else:
+            if psum not in mpp:
                 mpp[psum] = i #meaning - the currsum it have seen till that ind till i ..it stored
         return maxlen
